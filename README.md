@@ -14,7 +14,7 @@ ansible-playbook playbook.yml -K
 ````
 3) Открыть в браузере
    http://localhost - тут будет Grafana (логин и пароль admin/adminTest#01)
-   в Grafana будут в разделе Dashboards 3 дашборда
+   в ![Gafana](image.png) будут в разделе Dashboards 3 дашборда 
    1. counter - показывает общее (кумулятивное) количество логов, которые Filebeat обработал и отправил с момента своего запуска.
    2. filebeat_libbeat_output_events - Запрос rate(filebeat_libbeat_output_events{type="acked"}[5m]) показывает скорость обработки логов (сколько логов в секунду).
    3. Prometheus 2.0 Stats - это я просто стандарный дашборд подгрузил со статистикой прометеуса .
