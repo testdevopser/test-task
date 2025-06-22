@@ -9,23 +9,26 @@
 git clone https://github.com/testdevopser/test-task.git
 ```
 
-2) Зайти в папку test-task и запустить плейбук
+2) Зайти в папку test-task 
+````
+cd test-task
+````
+и запустить плейбук
 ````
 ansible-playbook playbook.yml -K
 ````
-3) Запустить в папке test-task (в которой находится файл docker-compose.yml) 
+
+3) Запустить в этой же папке test-task (в которой находится файл docker-compose.yml) 
 
 ```
 docker compose up -d
 ```
 
 
-3) Открыть в браузере
+4) Открыть в браузере
    http://localhost - тут будет Grafana (логин и пароль дефолтные admin/admin)
    и там должен быть импортирован дашборд ![Filebeat Overview (beat-exporter)](image-1.png)
-
-
-
+   
 
 
 ## Описание
@@ -105,3 +108,7 @@ WantedBy=multi-user.target
             └── filebeat.yml.j2
 
 ```
+## Метрики 
+Метрики можно посмотреть по адресу http://localhost:9479/metrics
+
+### 
