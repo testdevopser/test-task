@@ -38,15 +38,13 @@
   when: ansible_os_family == 'Debian'
 
 
-
-# !!! Эту задачу удаляем, так как /var/log/test теперь будет файлом, а не директорией.
-# - name: Ensure /var/log/test directory exists
-#   ansible.builtin.file:
-#     path: /var/log/test
-#     state: directory
-#     mode: '0755'
-#     owner: root
-#     group: root
+- name: Create an empty file /var/log/test
+  file:
+    path: /var/log/test
+    state: touch
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Copy Filebeat configuration file
   ansible.builtin.template:
