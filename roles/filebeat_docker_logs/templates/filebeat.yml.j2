@@ -2,21 +2,32 @@
 filebeat.inputs:
   - type: container
     enabled: true
-
     paths:
       - /var/lib/docker/containers/*/*.log
     containers.ids:
       - "*"
+    json:
+      keys_under_root: true
+      overwrite_keys: true
     processors:
       - add_docker_metadata:
           host: "unix:///var/run/docker.sock"
 
-# ============================== Filebeat outputs ==============================
 output.file:
   path: "/var/log"
   filename: "test"
   codec.json:
     pretty: true
+
+
+# ============================== Filebeat outputs ==============================
+
+output.file:
+  path: "/var/log"
+  filename: "test"
+  codec.json:
+    pretty: true
+
 
 # ================================= Logging ==================================
 logging.level: info
@@ -33,3 +44,5 @@ http:
   enabled: true
   host: "0.0.0.0" # Filebeat будет слушать на всех сетевых интерфейсах
   port: 5066
+
+
