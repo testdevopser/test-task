@@ -14,7 +14,11 @@ ansible-playbook playbook.yml -K
 ````
 3) Открыть в браузере
    http://localhost - тут будет Grafana (логин и пароль дефолтные admin/admin)
-Ключевые особенности этого дашборда:
+   и там должен быть импортирован дашборд ![Filebeat Overview (beat-exporter)](image-1.png)
+
+   Тут использованы label_values для заполнения переменных. Панель мониторинга состоит из трех строк: краткие ключевые показатели эффективности, пропускная способность событий и статус ошибок/очереди, чтобы обеспечить четкое представление всех основных показателей.
+
+##Ключевые особенности этого дашборда:
  - Обзор KPI: Верхняя панель показывает самые важные показатели: статус, время работы, количество активных горутин и общее количество обработанных событий.
  - Производительность конвейера: Графики показывают скорость обработки событий (опубликованные, подтвержденные, отфильтрованные), что помогает выявить "узкие места".
 - Ошибки и очередь: Отдельные панели для отслеживания ошибок отправки и количества событий в очереди на отправку (показатель задержек).
@@ -37,7 +41,7 @@ playbook.yml - устанавливает и настраивает 2 вещи:
 [grafana] logger=provisioning.dashboard type=file name=default t=2025-06-22T10:43:20.127572853Z level=error msg="failed to load dashboard from " file=/etc/grafana/provisioning/dashboards_files/counter.json error="invalid character '\"' after object key:value pair" 
 [grafana] logger=provisioning.dashboard type=file name=default t=2025-06-22T10:43:30.134220134Z level=error msg="failed to load dashboard from " file=/etc/grafana/provisioning/dashboards_files/counter.json error="invalid character '\"' after object key:value pair" 
 ```
-2) и также оно устанавливает такую штуку как beat-exporter (https://github.com/trustpilot/beat-exporter.git) - это надо чтобы дать метрики prometheus в понятном ему виде. (напрмямую у меня не получилось скормить prometheus вывод filebeat)
+2) и также оно устанавливает такую штуку как  ![beat-exporter] (https://github.com/trustpilot/beat-exporter.git) - это надо чтобы дать метрики prometheus в понятном ему виде. (напрмямую у меня не получилось скормить prometheus вывод filebeat). Поэтому допилил
 
 ```
 .
