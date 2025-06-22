@@ -103,5 +103,5 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "counter"
-
+  "uid": "counter",
 }
