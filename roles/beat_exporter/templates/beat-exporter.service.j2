@@ -1,0 +1,11 @@
+[Unit]
+Description=Trustpilot Beat Exporter for Prometheus
+After=network.target
+
+[Service]
+ExecStart={{ beat_exporter_bin }} -beat.uri "{{ beat_uri }}" -web.listen-address "{{ beat_listen_address }}"
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

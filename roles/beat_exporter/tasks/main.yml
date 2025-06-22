@@ -1,0 +1,44 @@
+- name: Ensure golang is installed
+  apt:
+    name: golang-go
+    state: present
+    update_cache: true
+
+- name: Create source directory
+  file:
+    path: "{{ beat_exporter_src }}"
+    state: directory
+    owner: "{{ ansible_user | default('root') }}"
+    mode: '0755'
+
+- name: Clone beat-exporter repository
+  git:
+    repo: "{{ beat_exporter_repo }}"
+    dest: "{{ beat_exporter_src }}"
+    version: master
+
+- name: Build beat-exporter
+  command: go build
+  args:
+    chdir: "{{ beat_exporter_src }}"
+
+- name: Copy binary to /usr/local/bin
+  copy:
+    src: "{{ beat_exporter_src }}/beat-exporter"
+    dest: "{{ beat_exporter_bin }}"
+    mode: '0755'
+
+- name: Deploy systemd service from template
+  template:
+    src: beat-exporter.service.j2
+    dest: /etc/systemd/system/beat-exporter.service
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: true
+
+- name: Enable and start beat-exporter
+  systemd:
+    name: beat-exporter
+    enabled: true
+    state: started

@@ -1,0 +1,5 @@
+beat_exporter_repo: "https://github.com/trustpilot/beat-exporter.git"
+beat_exporter_src: "/opt/beat-exporter"
+beat_exporter_bin: "/usr/local/bin/beat-exporter"
+beat_uri: "http://localhost:5066"
+beat_listen_address: "0.0.0.0:9479"

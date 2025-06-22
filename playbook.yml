@@ -1,0 +1,8 @@
+---
+- name: Deploy Filebeat and beat exporter for Docker logs collection
+  hosts: localhost
+  become: yes
+
+  roles:
+    - filebeat_docker_logs
+    - beat_exporter
