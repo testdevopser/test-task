@@ -7,6 +7,12 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
+#  - job_name: 'filebeat-native' #  это не работает :(
+#    static_configs:
+#      - targets: ['localhost:5066']
+#    metrics_path: '/'
+
+
   - job_name: 'filebeat' # Это задание будет опрашивать beat-exporter
     static_configs:
       - targets: ['host.docker.internal:9479'] # порт  9479 (порт beat-exporter)
