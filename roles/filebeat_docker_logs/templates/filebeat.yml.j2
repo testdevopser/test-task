@@ -13,12 +13,6 @@ filebeat.inputs:
       - add_docker_metadata:
           host: "unix:///var/run/docker.sock"
 
-output.file:
-  path: "/var/log"
-  filename: "test"
-  codec.json:
-    pretty: true
-
 
 # ============================== Filebeat outputs ==============================
 
