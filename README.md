@@ -7,7 +7,8 @@
 ```
 git clone https://github.com/testdevopser/test-task.git
 ```
-2) запустить плейбук
+
+2) Зайти в папку test-task и запустить плейбук
 ````
 ansible-playbook playbook.yml -K
 ````
