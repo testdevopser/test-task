@@ -38,8 +38,9 @@ docker compose up -d
 
 ## Описание
 
-playbook.yml - устанавливает и настраивает 2 вещи:  
-1) Filebeat для аггрегации и записи логов в "/var/log/test" с указанием имени docker контейнера в логе
+playbook.yml - устанавливает и настраивает 3 вещи:  
+1) Filebeat для получения логов с /var/lib/docker/containers/*/*.log и добавляет docker metadata (включая container_name)
+2) Logstash для принимает и пишет логи в "/var/log/test" с указанием имени docker контейнера в логе
 пример вывода /var/log/test
 ```
 [grafana] logger=context userId=0 orgId=0 uname= t=2025-06-22T10:42:56.537390521Z level=info msg="Request Completed" method=GET path=/ status=302 remote_addr=172.18.0.1 time_ms=0 duration=671.429µs size=29 referer=http://localhost/ handler=/ status_source=server 
@@ -47,8 +48,7 @@ playbook.yml - устанавливает и настраивает 2 вещи:
 [grafana] logger=provisioning.dashboard type=file name=default t=2025-06-22T10:43:00.120735254Z level=error msg="failed to load dashboard from " file=/etc/grafana/provisioning/dashboards_files/counter.json error="invalid character '\"' after object key:value pair" 
 [grafana] logger=authn.service t=2025-06-22T10:43:01.77521334Z level=warn msg="Failed to authenticate request" client=auth.client.session error="user token not found"
 ```
-2) и также оно устанавливает такую штуку как [beat-exporter] (https://github.com/trustpilot/beat-exporter.git) - это надо чтобы дать метрики prometheus в понятном ему виде. (напрмямую у меня не получилось скормить prometheus вывод filebeat). 
-
+3) и также оно устанавливает такую штуку как [beat-exporter] (https://github.com/trustpilot/beat-exporter.git) - это надо чтобы дать метрики prometheus в понятном ему виде. (напрмямую у меня не получилось скормить prometheus вывод filebeat). 
 Также допилил ещё и systemd сервис на его основе (/etc/systemd/system/beat-exporter.service)
 ````
 [Unit]
