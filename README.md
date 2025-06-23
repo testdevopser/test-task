@@ -82,40 +82,6 @@ WantedBy=multi-user.target
 Активность Harvester и Registrar: Показывает, сколько файлов читается в данный момент и как часто обновляется состояние.
 Секция для модуля Auditd: Сворачиваемая секция для метрик, специфичных для модуля auditd.
 
---- 
-## Структура
-
-```
-├── docker-compose.yml
-├── grafana
-│   └── provisioning
-│       ├── dashboards
-│       │   └── dashboards.yml
-│       ├── dashboards_files
-│       │   └── dashboard.json
-│       └── datasources
-│           └── prometheus.yml
-├── playbook.yml
-├── prometheus
-│   └── prometheus.yml
-├── README.md
-└── roles
-    ├── beat_exporter
-    │   ├── defaults
-    │   │   └── main.yml
-    │   ├── tasks
-    │   │   └── main.yml
-    │   └── templates
-    │       └── beat-exporter.service.j2
-    └── filebeat_docker_logs
-        ├── handlers
-        │   └── main.yml
-        ├── tasks
-        │   └── main.yml
-        └── templates
-            └── filebeat.yml.j2
-
-```
 
 ---
 ## Метрики Filebeat Exporter
