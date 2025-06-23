@@ -40,7 +40,7 @@ docker compose up -d
 
 playbook.yml - устанавливает и настраивает 3 вещи:  
 1) Filebeat для получения логов с /var/lib/docker/containers/*/*.log и добавляет docker metadata (включая container_name)
-2) Logstash для принимает и пишет логи в "/var/log/test" с указанием имени docker контейнера в логе
+2) Logstash принимает и пишет логи в "/var/log/test" с указанием имени docker контейнера в логе
 пример вывода /var/log/test
 ```
 [grafana] logger=context userId=0 orgId=0 uname= t=2025-06-22T10:42:56.537390521Z level=info msg="Request Completed" method=GET path=/ status=302 remote_addr=172.18.0.1 time_ms=0 duration=671.429µs size=29 referer=http://localhost/ handler=/ status_source=server 
