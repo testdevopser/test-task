@@ -1,0 +1,3 @@
+logstash_version: "8.14.0"
+logstash_config_dir: "/etc/logstash"
+logstash_pipeline_dir: "/etc/logstash/conf.d"

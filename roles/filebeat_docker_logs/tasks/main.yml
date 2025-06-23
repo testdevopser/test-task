@@ -38,13 +38,13 @@
   when: ansible_os_family == 'Debian'
 
 
-- name: Create an empty file /var/log/test
-  file:
-    path: /var/log/test
-    state: touch
-    owner: root
-    group: root
-    mode: '0644'
+#- name: Create an empty file /var/log/test
+#  file:
+#    path: /var/log/test
+#    state: touch
+##    owner: root
+##    group: root
+#    mode: '0644'
 
 - name: Copy Filebeat configuration file
   ansible.builtin.template:

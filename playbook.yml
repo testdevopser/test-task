@@ -6,3 +6,4 @@
   roles:
     - filebeat_docker_logs
     - beat_exporter
+    - logstash

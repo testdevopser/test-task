@@ -1,0 +1,56 @@
+---
+- name: Установка зависимостей
+  apt:
+    name:
+      - apt-transport-https
+      - openjdk-11-jdk
+    state: present
+    update_cache: yes
+
+- name: Добавление GPG-ключа Elastic
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Добавление репозитория Logstash
+  apt_repository:
+    repo: "deb https://artifacts.elastic.co/packages/{{ logstash_version | regex_replace('\\..*$', '') }}.x/apt stable main"
+    state: present
+
+- name: Установка Logstash
+  apt:
+    name: logstash
+    state: present
+    update_cache: yes
+
+- name: Копирование основного config-файла logstash.yml
+  template:
+    src: logstash.yml.j2
+    dest: "{{ logstash_config_dir }}/logstash.yml"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart logstash
+
+- name: Копирование pipeline config (logstash.conf)
+  copy:
+    src: logstash.conf
+    dest: "{{ logstash_pipeline_dir }}/logstash.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart logstash
+
+- name: Create an empty file /var/log/test
+  file:
+    path: /var/log/test
+    state: touch
+    owner: logstash
+    group: logstash
+    mode: '0644'
+
+- name: Обеспечить автозапуск и запустить Logstash
+  systemd:
+    name: logstash
+    enabled: true
+    state: restarted

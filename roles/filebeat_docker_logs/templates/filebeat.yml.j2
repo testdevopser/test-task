@@ -1,29 +1,19 @@
-# ============================== Filebeat inputs ===============================
 filebeat.inputs:
   - type: container
     enabled: true
     paths:
       - /var/lib/docker/containers/*/*.log
-    containers.ids:
-      - "*"
-    json:
-      keys_under_root: true
-      overwrite_keys: true
     processors:
       - add_docker_metadata:
           host: "unix:///var/run/docker.sock"
+      - decode_json_fields:
+          fields: ["message"]
+          target: ""
+          overwrite_keys: true
 
+output.logstash:
+  hosts: ["localhost:5044"]
 
-# ============================== Filebeat outputs ==============================
-
-output.file:
-  path: "/var/log"
-  filename: "test"
-  codec.json:
-    pretty: true
-
-
-# ================================= Logging ==================================
 logging.level: info
 logging.to_files: true
 logging.files:
@@ -32,11 +22,7 @@ logging.files:
   keepfiles: 7
   permissions: 0644
 
-
-# ----------------------------- to Prometheus ------------------------------
 http:
   enabled: true
-  host: "0.0.0.0" # Filebeat будет слушать на всех сетевых интерфейсах
+  host: "0.0.0.0"
   port: 5066
-
-
